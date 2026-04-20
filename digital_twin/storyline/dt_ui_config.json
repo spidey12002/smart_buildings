@@ -1,0 +1,34 @@
+[
+  {
+    "tier_id": "TIER_DISPLAY_DT",
+    "label": "TIER 1 — Display DT",
+    "tagline": "See your building as a Digital Twin",
+    "colour": "#6C63FF",
+    "data_keys": "predictions.csv (actual column) | summary_stats.json | cleaned_data.csv",
+    "ui_hint": "Line chart (daily/hourly toggle) | KPI cards (avg consumption, peak, baseline) | Building info panel | Meter type donut chart"
+  },
+  {
+    "tier_id": "TIER_RULES_DT",
+    "label": "TIER 2 — Rules DT",
+    "tagline": "We understand how your building behaves",
+    "colour": "#F5A623",
+    "data_keys": "digital_twin/rule_results/{category}/alerts.json | digital_twin/rule_results/{category}/insights.json",
+    "ui_hint": "Alert cards with severity badges (red/amber/green) | Rule evaluation table | 'Why is this happening?' explanation panel | Recommendations list"
+  },
+  {
+    "tier_id": "TIER_STATS_DT",
+    "label": "TIER 3 — Stats DT",
+    "tagline": "We quantify and predict your energy usage",
+    "colour": "#43B89C",
+    "data_keys": "precomputed_results/{category}/model_metrics.json | feature_importance.csv | correlations.csv | predictions.csv",
+    "ui_hint": "Model leaderboard table | Actual vs Predicted line chart | Feature importance bar chart | Metric scorecard (RMSE gauge) | Forecast horizon slider"
+  },
+  {
+    "tier_id": "TIER_CAUSAL_DT",
+    "label": "TIER 4 — Causal DT",
+    "tagline": "We explain WHY and simulate the impact of change",
+    "colour": "#FF6584",
+    "data_keys": "XGBoost model (feature perturbation) | Rule engine (threshold sensitivity) | Summary stats (cost-per-kWh baseline)",
+    "ui_hint": "Slider controls (temperature setpoint, occupancy hours, schedule shift) | Before/After energy chart | Projected savings banner | ROI timeline"
+  }
+]

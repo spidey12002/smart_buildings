@@ -1,0 +1,168 @@
+{
+  "category": "public_services",
+  "primary_use_label": "public_services",
+  "operating_hours": "Mon-Fri 08:00-17:00 (strict government hours)",
+  "stats": {
+    "avg_reading": 43.5442,
+    "max_reading": 82.54,
+    "min_reading": 14.51,
+    "peak_to_mean_ratio": 1.896,
+    "night_to_day_ratio": 0.864,
+    "weekend_to_weekday_ratio": 0.97,
+    "business_hours_pct": 0.326,
+    "peak_hour": 16,
+    "peak_hour_value": 49.9203,
+    "summer_to_winter_ratio": 0.941,
+    "air_temperature_correlation": 0.1962,
+    "dew_temperature_correlation": 0.1892,
+    "best_model": "XGBoost",
+    "best_model_rmse": 2.8595,
+    "best_model_r2": 0.9398,
+    "row_count": 25794,
+    "unique_buildings": 3,
+    "mean_meter_reading": 100.1624,
+    "max_meter_reading": 341.05,
+    "avg_air_temperature": 15.7743
+  },
+  "total_rules": 9,
+  "triggered_count": 3,
+  "critical_count": 1,
+  "warning_count": 1,
+  "info_count": 1,
+  "evaluations": [
+    {
+      "rule_id": "PUB_GOVT_HOURS",
+      "name": "Government Hours Profile",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.85,
+      "message": "Metric 'govt_hours_pct' not available in data.",
+      "recommendation": "Baseline normal — deviations indicate unauthorized after-hours use."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.864,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.864% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.97,
+      "threshold": 0.2,
+      "message": "Weekend usage is 0.97% of weekday — expected <20%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": 1.896,
+      "threshold": 2.5,
+      "message": "Peak demand is 1.9x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "PUB_LIGHTING_WASTE",
+      "name": "End-of-Day Lighting Waste",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.2,
+      "message": "Metric 'end_of_day_ratio' not available in data.",
+      "recommendation": "Automated end-of-day lighting sweep at 17:30."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": 0.1962,
+      "threshold": 0.25,
+      "message": "Energy use is 20% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'summer_winter_ratio' not available in data.",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.1,
+      "message": "Metric 'offhours_to_avg_ratio' not available in data.",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns."
+    },
+    {
+      "rule_id": "PUB_WEEKEND_WASTE",
+      "name": "Weekend Energy Waste",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.97,
+      "threshold": 0.15,
+      "message": "Weekend energy at 97% of weekday — government building should be minimal!",
+      "recommendation": "Enable weekend lockdown mode with master shutoff."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.864,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.864% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.97,
+      "threshold": 0.2,
+      "message": "Weekend usage is 0.97% of weekday — expected <20%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PUB_WEEKEND_WASTE",
+      "name": "Weekend Energy Waste",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.97,
+      "threshold": 0.15,
+      "message": "Weekend energy at 97% of weekday — government building should be minimal!",
+      "recommendation": "Enable weekend lockdown mode with master shutoff."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "rule_id": "RET_WEEKEND_PEAK",
+    "name": "Weekend Higher Traffic Pattern",
+    "severity": "info",
+    "tier": "RULES_DT",
+    "value": 1.039,
+    "threshold": 1.0,
+    "message": "Weekend peak confirmed — 1.0x weekday consumption (footfall-driven).",
+    "recommendation": "Scale HVAC and lighting to footfall forecasts for weekend optimization."
+  },
+  {
+    "rule_id": "NIGHT_BASE_LOAD",
+    "name": "High Night-Time Base Load",
+    "severity": "warning",
+    "tier": "RULES_DT",
+    "value": 0.719,
+    "threshold": 0.15,
+    "message": "Building is consuming 0.719% of daytime energy overnight.",
+    "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+  },
+  {
+    "rule_id": "PEAK_TO_MEAN",
+    "name": "Demand Spike Detection",
+    "severity": "critical",
+    "tier": "RULES_DT",
+    "value": 4.303,
+    "threshold": 2.5,
+    "message": "Peak demand is 4.3x the average — opportunity to flatten load curve.",
+    "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+  }
+]

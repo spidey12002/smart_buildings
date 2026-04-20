@@ -1,0 +1,133 @@
+{
+  "primary_use": "education",
+  "description": "Educational buildings (schools, universities) with strong occupancy seasonality.",
+  "operating_hours": "Mon-Fri 07:00-18:00, reduced summers",
+  "behavioral_rules": [
+    {
+      "rule_id": "EDU_SCHOOL_HOURS",
+      "name": "School Hours Consumption Pattern",
+      "description": "Peak consumption expected 08:00-16:00 on school days (Mon-Fri).",
+      "condition": "peak_hour in range(8,16) and dayofweek < 5",
+      "threshold": null,
+      "metric": "peak_hour_weekday",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Validate HVAC pre-cooling starts 30 min before occupancy.",
+      "demo_alert": "Energy peaks align with class schedule — occupancy-driven pattern confirmed."
+    },
+    {
+      "rule_id": "EDU_SUMMER_BREAK",
+      "name": "Summer Break Anomaly",
+      "description": "July-August consumption should be 40-60% lower than academic months.",
+      "condition": "avg_jul_aug / avg_oct_may < 0.6",
+      "threshold": 0.6,
+      "metric": "summer_to_academic_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Verify building shutdown protocols during summer recess.",
+      "demo_alert": "Summer break detected — consumption dropped {value:.0%} vs academic term."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.25,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "description": "Weekend usage should be <35% of weekday usage for this building type.",
+      "condition": "avg_weekend_reading / avg_weekday_reading > threshold",
+      "threshold": 0.35,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment.",
+      "demo_alert": "Weekend usage is {value}% of weekday — expected <{threshold_pct}%."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 4.0,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "EDU_CAFETERIA_SPIKE",
+      "name": "Cafeteria/Kitchen Midday Spike",
+      "description": "Electricity spike during 11:00-13:00 indicates unoptimized kitchen loads.",
+      "condition": "avg_11_13h > 1.3 * avg_reading",
+      "threshold": 1.3,
+      "metric": "lunch_hour_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Pre-heat kitchen equipment in stages rather than simultaneously.",
+      "demo_alert": "Midday kitchen load spike detected — demand staggering recommended."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.25,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "description": "Summer (Jun-Aug) vs Winter (Dec-Feb) consumption ratio identifies cooling vs heating dominance.",
+      "condition": "abs(avg_summer - avg_winter) / avg_annual > 0.15",
+      "threshold": 0.15,
+      "metric": "summer_winter_ratio",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings.",
+      "demo_alert": "Summer usage is {value:.0%} higher than winter — cooling-dominated building."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "description": "Consumption from 20:00-06:00 exceeds 20% of daily average.",
+      "condition": "avg_offhours_reading / avg_reading > threshold",
+      "threshold": 0.2,
+      "metric": "offhours_to_avg_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns.",
+      "demo_alert": "Significant energy consumed when building should be empty ({value:.0%} of daily avg)."
+    },
+    {
+      "rule_id": "EDU_HOLIDAY_WASTE",
+      "name": "Holiday Period Energy Waste",
+      "description": "Consumption during school holidays (weekends Dec) > 30% of term average.",
+      "condition": "avg_holiday_reading / avg_term_reading > 0.3",
+      "threshold": 0.3,
+      "metric": "holiday_to_term_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement holiday energy shutdown checklist.",
+      "demo_alert": "Building consuming {value:.0%} of normal during school holidays — energy waste detected!"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "category": "retail",
+  "primary_use_label": "retail",
+  "operating_hours": "Mon-Sun 09:00-21:00 (extended weekends)",
+  "stats": {
+    "avg_reading": 14.0232,
+    "max_reading": 60.3486,
+    "min_reading": 2.092,
+    "peak_to_mean_ratio": 4.303,
+    "night_to_day_ratio": 0.719,
+    "weekend_to_weekday_ratio": 1.039,
+    "business_hours_pct": 0.341,
+    "peak_hour": 15,
+    "peak_hour_value": 19.4345,
+    "air_temperature_correlation": 0.175,
+    "dew_temperature_correlation": 0.1905,
+    "best_model": "ARIMA (bldg=46,daily)",
+    "best_model_rmse": 3.4105,
+    "best_model_r2": null,
+    "row_count": 17231,
+    "unique_buildings": 2,
+    "mean_meter_reading": 6.6599,
+    "max_meter_reading": 283.0,
+    "avg_air_temperature": 22.9535
+  },
+  "total_rules": 8,
+  "triggered_count": 3,
+  "critical_count": 1,
+  "warning_count": 1,
+  "info_count": 1,
+  "evaluations": [
+    {
+      "rule_id": "RET_TRADING_HOURS",
+      "name": "Trading Hours Energy Profile",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.9,
+      "message": "Metric 'trading_hours_pct' not available in data.",
+      "recommendation": "Verify lighting and HVAC shut down within 30 min of close."
+    },
+    {
+      "rule_id": "RET_WEEKEND_PEAK",
+      "name": "Weekend Higher Traffic Pattern",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 1.039,
+      "threshold": 1.0,
+      "message": "Weekend peak confirmed — 1.0x weekday consumption (footfall-driven).",
+      "recommendation": "Scale HVAC and lighting to footfall forecasts for weekend optimization."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.719,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.719% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 4.303,
+      "threshold": 2.5,
+      "message": "Peak demand is 4.3x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "RET_LIGHTING_LOAD",
+      "name": "Lighting Dominant Load",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.7,
+      "message": "Metric 'electricity_proportion' not available in data.",
+      "recommendation": "LED retrofit and daylight harvesting sensors can reduce lighting load 30-50%."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": 0.175,
+      "threshold": 0.25,
+      "message": "Energy use is 18% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'summer_winter_ratio' not available in data.",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings."
+    },
+    {
+      "rule_id": "RET_AFTER_HOURS",
+      "name": "Post-Close Energy Waste",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.1,
+      "message": "Metric 'post_close_ratio' not available in data.",
+      "recommendation": "Install smart lighting with occupancy detection and auto-close timers."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "RET_WEEKEND_PEAK",
+      "name": "Weekend Higher Traffic Pattern",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 1.039,
+      "threshold": 1.0,
+      "message": "Weekend peak confirmed — 1.0x weekday consumption (footfall-driven).",
+      "recommendation": "Scale HVAC and lighting to footfall forecasts for weekend optimization."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.719,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.719% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 4.303,
+      "threshold": 2.5,
+      "message": "Peak demand is 4.3x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    }
+  ]
+}

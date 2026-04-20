@@ -1,0 +1,123 @@
+{
+  "category": "parking",
+  "primary_use_label": "parking",
+  "operating_hours": "05:00-23:00 (peak: 07-09 and 17-19)",
+  "stats": {
+    "avg_reading": 95.66,
+    "max_reading": 132.075,
+    "min_reading": 52.5571,
+    "peak_to_mean_ratio": 1.381,
+    "night_to_day_ratio": 1.506,
+    "weekend_to_weekday_ratio": 0.989,
+    "business_hours_pct": 0.187,
+    "peak_hour": 19,
+    "peak_hour_value": 124.4203,
+    "air_temperature_correlation": 0.3893,
+    "dew_temperature_correlation": 0.4302,
+    "best_model": "ARIMA (bldg=51,daily)",
+    "best_model_rmse": 3.2593,
+    "best_model_r2": null,
+    "row_count": 8616,
+    "unique_buildings": 1,
+    "mean_meter_reading": 57.6675,
+    "max_meter_reading": 187.0,
+    "avg_air_temperature": 22.954
+  },
+  "total_rules": 6,
+  "triggered_count": 2,
+  "critical_count": 0,
+  "warning_count": 0,
+  "info_count": 2,
+  "evaluations": [
+    {
+      "rule_id": "PRK_COMMUTER_PEAKS",
+      "name": "Commuter Double-Peak Pattern",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": null,
+      "message": "Metric 'commuter_peak_hours' not available in data.",
+      "recommendation": "Confirm ventilation fans track occupancy sensor data."
+    },
+    {
+      "rule_id": "PRK_OVERNIGHT_LIGHTING",
+      "name": "Overnight Lighting Base Load",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.2,
+      "message": "Metric 'overnight_to_peak_ratio' not available in data.",
+      "recommendation": "Motion-activated lighting can reduce overnight load by 60-70%."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.989,
+      "threshold": 0.6,
+      "message": "Weekend usage is 0.989% of weekday — expected <60%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PRK_VENTILATION_OVER",
+      "name": "Ventilation Over-Run Detection",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 2,
+      "message": "Metric 'post_peak_ventilation_hours' not available in data.",
+      "recommendation": "CO2-linked ventilation control eliminates idle fan run-time."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.3893,
+      "threshold": 0.1,
+      "message": "Energy use is 39% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.2,
+      "message": "Metric 'offhours_to_avg_ratio' not available in data.",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.989,
+      "threshold": 0.6,
+      "message": "Weekend usage is 0.989% of weekday — expected <60%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.3893,
+      "threshold": 0.1,
+      "message": "Energy use is 39% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    }
+  ]
+}

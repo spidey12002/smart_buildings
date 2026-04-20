@@ -1,0 +1,121 @@
+{
+  "primary_use": "public_services",
+  "description": "Government offices, civic buildings — highly regular, business-hours only.",
+  "operating_hours": "Mon-Fri 08:00-17:00 (strict government hours)",
+  "behavioral_rules": [
+    {
+      "rule_id": "PUB_GOVT_HOURS",
+      "name": "Government Hours Profile",
+      "description": "85%+ of energy should occur Mon-Fri 08:00-17:00.",
+      "condition": "pct_govt_hours_energy > 0.85",
+      "threshold": 0.85,
+      "metric": "govt_hours_pct",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Baseline normal — deviations indicate unauthorized after-hours use.",
+      "demo_alert": "Government hours profile confirmed — clean {value:.0%} efficiency pattern."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.15,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "description": "Weekend usage should be <20% of weekday usage for this building type.",
+      "condition": "avg_weekend_reading / avg_weekday_reading > threshold",
+      "threshold": 0.2,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment.",
+      "demo_alert": "Weekend usage is {value}% of weekday — expected <{threshold_pct}%."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 2.5,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "PUB_LIGHTING_WASTE",
+      "name": "End-of-Day Lighting Waste",
+      "description": "Consumption >20% of avg between 17:00-20:00 suggests lights left on.",
+      "condition": "avg_eod / avg_daytime > 0.20",
+      "threshold": 0.2,
+      "metric": "end_of_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Automated end-of-day lighting sweep at 17:30.",
+      "demo_alert": "Lights/HVAC running 2-3h after close — {value:.0%} of daytime load wasted."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.25,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "description": "Summer (Jun-Aug) vs Winter (Dec-Feb) consumption ratio identifies cooling vs heating dominance.",
+      "condition": "abs(avg_summer - avg_winter) / avg_annual > 0.15",
+      "threshold": 0.15,
+      "metric": "summer_winter_ratio",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings.",
+      "demo_alert": "Summer usage is {value:.0%} higher than winter — cooling-dominated building."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "description": "Consumption from 20:00-07:00 exceeds 10% of daily average.",
+      "condition": "avg_offhours_reading / avg_reading > threshold",
+      "threshold": 0.1,
+      "metric": "offhours_to_avg_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns.",
+      "demo_alert": "Significant energy consumed when building should be empty ({value:.0%} of daily avg)."
+    },
+    {
+      "rule_id": "PUB_WEEKEND_WASTE",
+      "name": "Weekend Energy Waste",
+      "description": "Government buildings open on weekends is anomalous — >15% of weekday = waste.",
+      "condition": "avg_weekend / avg_weekday > 0.15",
+      "threshold": 0.15,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Enable weekend lockdown mode with master shutoff.",
+      "demo_alert": "Weekend energy at {value:.0%} of weekday — government building should be minimal!"
+    }
+  ]
+}

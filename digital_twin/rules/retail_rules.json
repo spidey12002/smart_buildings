@@ -1,0 +1,109 @@
+{
+  "primary_use": "retail",
+  "description": "Retail stores with lighting-heavy loads and trading-hours patterns.",
+  "operating_hours": "Mon-Sun 09:00-21:00 (extended weekends)",
+  "behavioral_rules": [
+    {
+      "rule_id": "RET_TRADING_HOURS",
+      "name": "Trading Hours Energy Profile",
+      "description": "90%+ of energy during operating hours 08:00-22:00.",
+      "condition": "pct_trading_hours > 0.90",
+      "threshold": 0.9,
+      "metric": "trading_hours_pct",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Verify lighting and HVAC shut down within 30 min of close.",
+      "demo_alert": "Retail energy profile confirmed — {value:.0%} usage within trading hours."
+    },
+    {
+      "rule_id": "RET_WEEKEND_PEAK",
+      "name": "Weekend Higher Traffic Pattern",
+      "description": "Weekend energy > weekday for retail — higher footfall expected.",
+      "condition": "avg_weekend > avg_weekday",
+      "threshold": 1.0,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Scale HVAC and lighting to footfall forecasts for weekend optimization.",
+      "demo_alert": "Weekend peak confirmed — {value:.1f}x weekday consumption (footfall-driven)."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.15,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 2.5,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "RET_LIGHTING_LOAD",
+      "name": "Lighting Dominant Load",
+      "description": "Electricity meter reading > 70% of total energy indicates lighting dominance.",
+      "condition": "electricity_pct > 0.70",
+      "threshold": 0.7,
+      "metric": "electricity_proportion",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "LED retrofit and daylight harvesting sensors can reduce lighting load 30-50%.",
+      "demo_alert": "Lighting accounts for majority of energy — LED upgrade ROI < 2 years."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.25,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "description": "Summer (Jun-Aug) vs Winter (Dec-Feb) consumption ratio identifies cooling vs heating dominance.",
+      "condition": "abs(avg_summer - avg_winter) / avg_annual > 0.15",
+      "threshold": 0.15,
+      "metric": "summer_winter_ratio",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings.",
+      "demo_alert": "Summer usage is {value:.0%} higher than winter — cooling-dominated building."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "RET_AFTER_HOURS",
+      "name": "Post-Close Energy Waste",
+      "description": "Consumption >10% of trading avg after store close (22:00-07:00).",
+      "condition": "avg_after_close / avg_trading > 0.10",
+      "threshold": 0.1,
+      "metric": "post_close_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Install smart lighting with occupancy detection and auto-close timers.",
+      "demo_alert": "Energy waste after store close: {value:.0%} of trading-hours load still running."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "primary_use": "healthcare",
+  "description": "Hospitals and clinics — 24/7 critical operations with highest base loads.",
+  "operating_hours": "24/7 — continuous critical operations",
+  "behavioral_rules": [
+    {
+      "rule_id": "HLT_24_7_BASE",
+      "name": "Continuous Critical Base Load",
+      "description": "Healthcare requires near-constant load. Night min should be >60% of day avg.",
+      "condition": "min_night_reading / avg_day_reading > 0.60",
+      "threshold": 0.6,
+      "metric": "night_min_to_day_avg",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Normal pattern — validate backup power covers base critical load.",
+      "demo_alert": "24/7 critical operations confirmed — {value:.0%} base load maintained overnight."
+    },
+    {
+      "rule_id": "HLT_SHIFT_CHANGE",
+      "name": "Shift Change Spike Pattern",
+      "description": "Consumption spikes at 07:00, 15:00, and 23:00 indicate shift changeovers.",
+      "condition": "local_peak in [7, 15, 23]",
+      "threshold": null,
+      "metric": "shift_peak_hours",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Validate medical equipment activation follows shift handover protocols.",
+      "demo_alert": "Shift-change energy spikes detected — HVAC pre-conditioning recommended."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 2.0,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "HLT_STEAM_RATIO",
+      "name": "Steam/Hot Water Proportion",
+      "description": "Steam for sterilization should be <30% of total energy mix.",
+      "condition": "steam_pct > 0.30",
+      "threshold": 0.3,
+      "metric": "steam_proportion",
+      "severity": "warning",
+      "tier": "STATS_DT",
+      "recommendation": "Consider low-energy sterilization alternatives for non-critical equipment.",
+      "demo_alert": "Steam accounts for {value:.0%} of energy mix — above benchmark threshold."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.2,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "HLT_HUMIDITY_LOAD",
+      "name": "Humidity Control Load",
+      "description": "Healthcare requires precise humidity control — correlated with dew_temperature.",
+      "condition": "abs(corr_dew_temp_meter) > 0.2",
+      "threshold": 0.2,
+      "metric": "dew_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Pre-emptive dehumidification during forecasted humid days saves reactive load.",
+      "demo_alert": "Humidity-driven energy load detected — forecast-based HVAC can reduce cost."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "HLT_SUDDEN_DROP",
+      "name": "Unexpected Consumption Drop",
+      "description": "A sudden >40% drop in consumption vs prior day average is anomalous in healthcare.",
+      "condition": "pct_change_vs_yesterday < -0.40",
+      "threshold": -0.4,
+      "metric": "daily_pct_change",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "URGENT: Verify no equipment failure or power supply interruption.",
+      "demo_alert": "CRITICAL: Consumption dropped {value:.0%} — possible equipment failure or outage!"
+    }
+  ]
+}

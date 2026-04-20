@@ -1,0 +1,177 @@
+{
+  "category": "education",
+  "primary_use_label": "education",
+  "operating_hours": "Mon-Fri 07:00-18:00, reduced summers",
+  "stats": {
+    "avg_reading": 433.9765,
+    "max_reading": 7543.37,
+    "min_reading": 0.0,
+    "peak_to_mean_ratio": 17.382,
+    "night_to_day_ratio": 0.88,
+    "weekend_to_weekday_ratio": 0.934,
+    "business_hours_pct": 0.329,
+    "peak_hour": 14,
+    "peak_hour_value": 475.1897,
+    "summer_to_winter_ratio": 0.583,
+    "best_model": "ARIMA (bldg=14,daily)",
+    "best_model_rmse": 38.4792,
+    "best_model_r2": null,
+    "row_count": 233315,
+    "unique_buildings": 23,
+    "mean_meter_reading": 419.8146,
+    "max_meter_reading": 29622.4,
+    "avg_air_temperature": 18.3369
+  },
+  "total_rules": 10,
+  "triggered_count": 3,
+  "critical_count": 1,
+  "warning_count": 1,
+  "info_count": 1,
+  "evaluations": [
+    {
+      "rule_id": "EDU_SCHOOL_HOURS",
+      "name": "School Hours Consumption Pattern",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": null,
+      "message": "Metric 'peak_hour_weekday' not available in data.",
+      "recommendation": "Validate HVAC pre-cooling starts 30 min before occupancy."
+    },
+    {
+      "rule_id": "EDU_SUMMER_BREAK",
+      "name": "Summer Break Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.6,
+      "message": "Metric 'summer_to_academic_ratio' not available in data.",
+      "recommendation": "Verify building shutdown protocols during summer recess."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.88,
+      "threshold": 0.25,
+      "message": "Building is consuming 0.88% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.934,
+      "threshold": 0.35,
+      "message": "Weekend usage is 0.934% of weekday — expected <35%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 17.382,
+      "threshold": 4.0,
+      "message": "Peak demand is 17.4x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "EDU_CAFETERIA_SPIKE",
+      "name": "Cafeteria/Kitchen Midday Spike",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 1.3,
+      "message": "Metric 'lunch_hour_ratio' not available in data.",
+      "recommendation": "Pre-heat kitchen equipment in stages rather than simultaneously."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.25,
+      "message": "Metric 'air_temperature_correlation' not available in data.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'summer_winter_ratio' not available in data.",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.2,
+      "message": "Metric 'offhours_to_avg_ratio' not available in data.",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns."
+    },
+    {
+      "rule_id": "EDU_HOLIDAY_WASTE",
+      "name": "Holiday Period Energy Waste",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.3,
+      "message": "Metric 'holiday_to_term_ratio' not available in data.",
+      "recommendation": "Implement holiday energy shutdown checklist."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.88,
+      "threshold": 0.25,
+      "message": "Building is consuming 0.88% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.934,
+      "threshold": 0.35,
+      "message": "Weekend usage is 0.934% of weekday — expected <35%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 17.382,
+      "threshold": 4.0,
+      "message": "Peak demand is 17.4x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    }
+  ]
+}

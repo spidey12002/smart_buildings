@@ -1,0 +1,111 @@
+{
+  "category": "healthcare",
+  "primary_use_label": "healthcare",
+  "operating_hours": "24/7 — continuous critical operations",
+  "stats": {
+    "avg_reading": 1254.055,
+    "max_reading": 1861.03,
+    "min_reading": 660.46,
+    "peak_to_mean_ratio": 1.484,
+    "night_to_day_ratio": 0.929,
+    "weekend_to_weekday_ratio": 0.983,
+    "business_hours_pct": 0.311,
+    "peak_hour": 13,
+    "peak_hour_value": 1319.4985,
+    "air_temperature_correlation": 0.0877,
+    "dew_temperature_correlation": 0.0863,
+    "best_model": "ARIMA (bldg=455,daily)",
+    "best_model_rmse": 9.5676,
+    "best_model_r2": null,
+    "row_count": 17203,
+    "unique_buildings": 2,
+    "mean_meter_reading": 652.0849,
+    "max_meter_reading": 1919.72,
+    "avg_air_temperature": 15.7681
+  },
+  "total_rules": 7,
+  "triggered_count": 0,
+  "critical_count": 0,
+  "warning_count": 0,
+  "info_count": 0,
+  "evaluations": [
+    {
+      "rule_id": "HLT_24_7_BASE",
+      "name": "Continuous Critical Base Load",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.6,
+      "message": "Metric 'night_min_to_day_avg' not available in data.",
+      "recommendation": "Normal pattern — validate backup power covers base critical load."
+    },
+    {
+      "rule_id": "HLT_SHIFT_CHANGE",
+      "name": "Shift Change Spike Pattern",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": null,
+      "message": "Metric 'shift_peak_hours' not available in data.",
+      "recommendation": "Validate medical equipment activation follows shift handover protocols."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": 1.484,
+      "threshold": 2.0,
+      "message": "Peak demand is 1.5x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "HLT_STEAM_RATIO",
+      "name": "Steam/Hot Water Proportion",
+      "severity": "warning",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.3,
+      "message": "Metric 'steam_proportion' not available in data.",
+      "recommendation": "Consider low-energy sterilization alternatives for non-critical equipment."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": 0.0877,
+      "threshold": 0.2,
+      "message": "Energy use is 9% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "HLT_HUMIDITY_LOAD",
+      "name": "Humidity Control Load",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": 0.0863,
+      "threshold": 0.2,
+      "message": "Humidity-driven energy load detected — forecast-based HVAC can reduce cost.",
+      "recommendation": "Pre-emptive dehumidification during forecasted humid days saves reactive load."
+    },
+    {
+      "rule_id": "HLT_SUDDEN_DROP",
+      "name": "Unexpected Consumption Drop",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": -0.4,
+      "message": "Metric 'daily_pct_change' not available in data.",
+      "recommendation": "URGENT: Verify no equipment failure or power supply interruption."
+    }
+  ],
+  "alerts": []
+}

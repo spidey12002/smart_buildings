@@ -1,0 +1,88 @@
+{
+  "primary_use": "food_sales_and_service",
+  "description": "Restaurants and food service — kitchen equipment dominant, meal-time driven.",
+  "operating_hours": "07:00-22:00 with meal-time spikes",
+  "behavioral_rules": [
+    {
+      "rule_id": "FSS_MEAL_PEAKS",
+      "name": "Meal-Time Energy Spikes",
+      "description": "Consumption peaks during 07-09 (breakfast), 11-14 (lunch), 18-21 (dinner).",
+      "condition": "local_peak in [7,8,12,13,19,20]",
+      "threshold": null,
+      "metric": "meal_peak_hours",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Pre-heat kitchen equipment in stages to avoid simultaneous demand spikes.",
+      "demo_alert": "Meal-time demand spikes confirmed — staggered start-up recommended."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.2,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 3.0,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "FSS_REFRIGERATION",
+      "name": "Refrigeration Base Load",
+      "description": "Overnight base load driven by refrigeration — should be 15-25% of daily avg.",
+      "condition": "avg_overnight / avg_daily between 0.15 and 0.25",
+      "threshold": {
+        "min": 0.15,
+        "max": 0.25
+      },
+      "metric": "refrigeration_base_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Validate refrigeration door seals and defrost scheduling.",
+      "demo_alert": "Overnight refrigeration load: {value:.0%} of daily — within/outside benchmark."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.2,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "FSS_IDLE_EQUIPMENT",
+      "name": "Equipment Idle Between Service Periods",
+      "description": "Consumption between 14:00-17:00 (post-lunch, pre-dinner) > 60% of peak.",
+      "condition": "avg_idle_period / avg_peak > 0.60",
+      "threshold": 0.6,
+      "metric": "idle_to_peak_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Install smart idle-mode controls on ovens and grills between service periods.",
+      "demo_alert": "Kitchen equipment idle at {value:.0%} of peak load — auto-idle modes needed."
+    }
+  ]
+}

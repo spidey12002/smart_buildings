@@ -1,0 +1,127 @@
+{
+  "category": "food_sales_and_service",
+  "primary_use_label": "food_sales_and_service",
+  "operating_hours": "07:00-22:00 with meal-time spikes",
+  "stats": {
+    "avg_reading": 10.9368,
+    "max_reading": 90.852,
+    "min_reading": 0.0,
+    "peak_to_mean_ratio": 8.307,
+    "night_to_day_ratio": 1.146,
+    "weekend_to_weekday_ratio": 0.967,
+    "business_hours_pct": 0.28,
+    "peak_hour": 7,
+    "peak_hour_value": 18.0068,
+    "summer_to_winter_ratio": 0.342,
+    "air_temperature_correlation": 0.1864,
+    "dew_temperature_correlation": 0.281,
+    "best_model": "Random Forest",
+    "best_model_rmse": 5.0783,
+    "best_model_r2": 0.7131,
+    "row_count": 25839,
+    "unique_buildings": 1,
+    "mean_meter_reading": 64.2135,
+    "max_meter_reading": 426.242,
+    "avg_air_temperature": 25.172
+  },
+  "total_rules": 6,
+  "triggered_count": 2,
+  "critical_count": 1,
+  "warning_count": 1,
+  "info_count": 0,
+  "evaluations": [
+    {
+      "rule_id": "FSS_MEAL_PEAKS",
+      "name": "Meal-Time Energy Spikes",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": null,
+      "message": "Metric 'meal_peak_hours' not available in data.",
+      "recommendation": "Pre-heat kitchen equipment in stages to avoid simultaneous demand spikes."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 1.146,
+      "threshold": 0.2,
+      "message": "Building is consuming 1.146% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 8.307,
+      "threshold": 3.0,
+      "message": "Peak demand is 8.3x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "FSS_REFRIGERATION",
+      "name": "Refrigeration Base Load",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": {
+        "min": 0.15,
+        "max": 0.25
+      },
+      "message": "Metric 'refrigeration_base_ratio' not available in data.",
+      "recommendation": "Validate refrigeration door seals and defrost scheduling."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": 0.1864,
+      "threshold": 0.2,
+      "message": "Energy use is 19% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "FSS_IDLE_EQUIPMENT",
+      "name": "Equipment Idle Between Service Periods",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.6,
+      "message": "Metric 'idle_to_peak_ratio' not available in data.",
+      "recommendation": "Install smart idle-mode controls on ovens and grills between service periods."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 1.146,
+      "threshold": 0.2,
+      "message": "Building is consuming 1.146% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 8.307,
+      "threshold": 3.0,
+      "message": "Peak demand is 8.3x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    }
+  ]
+}

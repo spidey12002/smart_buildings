@@ -1,0 +1,134 @@
+{
+  "category": "entertainment_public_assembly",
+  "primary_use_label": "entertainment_public_assembly",
+  "operating_hours": "Variable — event-driven (evenings and weekends dominant)",
+  "stats": {
+    "avg_reading": 131.3472,
+    "max_reading": 265.014,
+    "min_reading": 0.0,
+    "peak_to_mean_ratio": 2.018,
+    "night_to_day_ratio": 0.788,
+    "weekend_to_weekday_ratio": 1.044,
+    "business_hours_pct": 0.338,
+    "peak_hour": 16,
+    "peak_hour_value": 159.3931,
+    "air_temperature_correlation": 0.3018,
+    "dew_temperature_correlation": 0.3775,
+    "best_model": "Random Forest",
+    "best_model_rmse": 12.9156,
+    "best_model_r2": 0.9641,
+    "row_count": 20506,
+    "unique_buildings": 2,
+    "mean_meter_reading": 136.2826,
+    "max_meter_reading": 462.29,
+    "avg_air_temperature": 23.5681
+  },
+  "total_rules": 7,
+  "triggered_count": 2,
+  "critical_count": 0,
+  "warning_count": 1,
+  "info_count": 1,
+  "evaluations": [
+    {
+      "rule_id": "ENT_EVENT_SPIKE",
+      "name": "Event-Driven Consumption Spike",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 3.0,
+      "message": "Metric 'event_spike_ratio' not available in data.",
+      "recommendation": "Link building control system to event calendar for automated scale-up."
+    },
+    {
+      "rule_id": "ENT_EVENING_PEAK",
+      "name": "Evening and Weekend Dominance",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.6,
+      "message": "Metric 'evening_weekend_pct' not available in data.",
+      "recommendation": "Optimize pre-event preparation time — start HVAC 90 min before, not 3h."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": 2.018,
+      "threshold": 5.0,
+      "message": "Peak demand is 2.0x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "ENT_POST_EVENT_RAMPDOWN",
+      "name": "Slow Post-Event Ramp-Down",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.2,
+      "message": "Metric 'post_event_ramp_down' not available in data.",
+      "recommendation": "Automate post-event shutdown sequence for HVAC and non-essential lighting."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.3018,
+      "threshold": 0.25,
+      "message": "Energy use is 30% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.788,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.788% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'offhours_to_avg_ratio' not available in data.",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.3018,
+      "threshold": 0.25,
+      "message": "Energy use is 30% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.788,
+      "threshold": 0.15,
+      "message": "Building is consuming 0.788% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    }
+  ]
+}

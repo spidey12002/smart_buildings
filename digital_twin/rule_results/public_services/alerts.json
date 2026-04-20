@@ -1,0 +1,32 @@
+[
+  {
+    "rule_id": "NIGHT_BASE_LOAD",
+    "name": "High Night-Time Base Load",
+    "severity": "warning",
+    "tier": "RULES_DT",
+    "value": 0.864,
+    "threshold": 0.15,
+    "message": "Building is consuming 0.864% of daytime energy overnight.",
+    "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+  },
+  {
+    "rule_id": "WEEKEND_ANOMALY",
+    "name": "Weekend Consumption Anomaly",
+    "severity": "info",
+    "tier": "RULES_DT",
+    "value": 0.97,
+    "threshold": 0.2,
+    "message": "Weekend usage is 0.97% of weekday — expected <20%.",
+    "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+  },
+  {
+    "rule_id": "PUB_WEEKEND_WASTE",
+    "name": "Weekend Energy Waste",
+    "severity": "critical",
+    "tier": "RULES_DT",
+    "value": 0.97,
+    "threshold": 0.15,
+    "message": "Weekend energy at 97% of weekday — government building should be minimal!",
+    "recommendation": "Enable weekend lockdown mode with master shutoff."
+  }
+]

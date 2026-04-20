@@ -1,0 +1,146 @@
+{
+  "category": "lodging_residential",
+  "primary_use_label": "lodging_residential",
+  "operating_hours": "24/7 — peaks at 06:00-09:00 and 18:00-22:00",
+  "stats": {
+    "avg_reading": 387.4602,
+    "max_reading": 731.705,
+    "min_reading": 146.409,
+    "peak_to_mean_ratio": 1.888,
+    "night_to_day_ratio": 0.944,
+    "weekend_to_weekday_ratio": 0.978,
+    "business_hours_pct": 0.308,
+    "peak_hour": 17,
+    "peak_hour_value": 426.4089,
+    "summer_to_winter_ratio": 1.586,
+    "air_temperature_correlation": 0.4643,
+    "dew_temperature_correlation": 0.5101,
+    "best_model": "Linear Regression",
+    "best_model_rmse": 22.4369,
+    "best_model_r2": 0.9543,
+    "row_count": 25848,
+    "unique_buildings": 3,
+    "mean_meter_reading": 205.3652,
+    "max_meter_reading": 731.705,
+    "avg_air_temperature": 22.954
+  },
+  "total_rules": 7,
+  "triggered_count": 3,
+  "critical_count": 0,
+  "warning_count": 1,
+  "info_count": 2,
+  "evaluations": [
+    {
+      "rule_id": "LOD_TWIN_PEAK",
+      "name": "Morning and Evening Occupancy Peaks",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": null,
+      "message": "Metric 'twin_peak_hours' not available in data.",
+      "recommendation": "Pre-heat hot water 30 min before peak to avoid instant-draw spikes."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.944,
+      "threshold": 0.5,
+      "message": "Building is consuming 0.944% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": 1.888,
+      "threshold": 2.5,
+      "message": "Peak demand is 1.9x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "LOD_HOT_WATER",
+      "name": "Hot Water / Steam Proportion",
+      "severity": "warning",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.35,
+      "message": "Metric 'hot_water_proportion' not available in data.",
+      "recommendation": "Install heat pump water heaters — 3x more efficient than electric."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.4643,
+      "threshold": 0.3,
+      "message": "Energy use is 46% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'summer_winter_ratio' not available in data.",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings."
+    },
+    {
+      "rule_id": "LOD_VACANCY_WASTE",
+      "name": "Energy Waste During Low Occupancy",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.978,
+      "threshold": 0.85,
+      "message": "Weekend occupancy drop not reflected in energy savings — review floor shutdowns.",
+      "recommendation": "Smart floor management — power down unoccupied floors automatically."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.944,
+      "threshold": 0.5,
+      "message": "Building is consuming 0.944% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": true,
+      "value": 0.4643,
+      "threshold": 0.3,
+      "message": "Energy use is 46% correlated with outdoor temperature.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "LOD_VACANCY_WASTE",
+      "name": "Energy Waste During Low Occupancy",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.978,
+      "threshold": 0.85,
+      "message": "Weekend occupancy drop not reflected in energy savings — review floor shutdowns.",
+      "recommendation": "Smart floor management — power down unoccupied floors automatically."
+    }
+  ]
+}

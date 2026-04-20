@@ -1,0 +1,32 @@
+[
+  {
+    "rule_id": "NIGHT_BASE_LOAD",
+    "name": "High Night-Time Base Load",
+    "severity": "warning",
+    "tier": "RULES_DT",
+    "value": 0.944,
+    "threshold": 0.5,
+    "message": "Building is consuming 0.944% of daytime energy overnight.",
+    "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+  },
+  {
+    "rule_id": "TEMP_CORRELATION",
+    "name": "Weather Sensitivity Check",
+    "severity": "info",
+    "tier": "STATS_DT",
+    "value": 0.4643,
+    "threshold": 0.3,
+    "message": "Energy use is 46% correlated with outdoor temperature.",
+    "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+  },
+  {
+    "rule_id": "LOD_VACANCY_WASTE",
+    "name": "Energy Waste During Low Occupancy",
+    "severity": "info",
+    "tier": "RULES_DT",
+    "value": 0.978,
+    "threshold": 0.85,
+    "message": "Weekend occupancy drop not reflected in energy savings — review floor shutdowns.",
+    "recommendation": "Smart floor management — power down unoccupied floors automatically."
+  }
+]

@@ -1,0 +1,167 @@
+{
+  "category": "office",
+  "primary_use_label": "office",
+  "operating_hours": "Mon-Fri 08:00-19:00",
+  "stats": {
+    "avg_reading": 177.8063,
+    "max_reading": 336.59,
+    "min_reading": 0.0,
+    "peak_to_mean_ratio": 1.893,
+    "night_to_day_ratio": 0.795,
+    "weekend_to_weekday_ratio": 0.859,
+    "business_hours_pct": 0.366,
+    "peak_hour": 15,
+    "peak_hour_value": 215.0972,
+    "summer_to_winter_ratio": 1.402,
+    "dew_temperature_correlation": 0.3201,
+    "best_model": "Random Forest",
+    "best_model_rmse": 10.8501,
+    "best_model_r2": 0.945,
+    "row_count": 64834,
+    "unique_buildings": 6,
+    "mean_meter_reading": 328.584,
+    "max_meter_reading": 3967.77,
+    "avg_air_temperature": 23.882
+  },
+  "total_rules": 10,
+  "triggered_count": 2,
+  "critical_count": 0,
+  "warning_count": 1,
+  "info_count": 1,
+  "evaluations": [
+    {
+      "rule_id": "OFF_BUSINESS_HOURS",
+      "name": "Business Hours Energy Profile",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "triggered": false,
+      "value": 0.366,
+      "threshold": 0.8,
+      "message": "Office follows clean 9-to-5 pattern — 37% of energy in business hours.",
+      "recommendation": "Baseline established — deviations indicate schedule issues."
+    },
+    {
+      "rule_id": "OFF_MONDAY_RAMPUP",
+      "name": "Monday Morning Ramp-Up",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 1.5,
+      "message": "Metric 'monday_ramp_ratio' not available in data.",
+      "recommendation": "Pre-cool Friday evening to reduce Monday morning HVAC surge."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.795,
+      "threshold": 0.2,
+      "message": "Building is consuming 0.795% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.859,
+      "threshold": 0.3,
+      "message": "Weekend usage is 0.859% of weekday — expected <30%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    },
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": 1.893,
+      "threshold": 3.5,
+      "message": "Peak demand is 1.9x the average — opportunity to flatten load curve.",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+    },
+    {
+      "rule_id": "OFF_OVERNIGHT_LOAD",
+      "name": "Overnight Equipment Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'overnight_to_daytime_ratio' not available in data.",
+      "recommendation": "Audit servers, HVAC, and lighting auto-shutoff schedules."
+    },
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.3,
+      "message": "Metric 'air_temperature_correlation' not available in data.",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'summer_winter_ratio' not available in data.",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.15,
+      "message": "Metric 'offhours_to_avg_ratio' not available in data.",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns."
+    },
+    {
+      "rule_id": "OFF_COOLING_WASTE",
+      "name": "Disproportionate Cooling Load",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "triggered": false,
+      "value": null,
+      "threshold": 0.4,
+      "message": "Metric 'cooling_in_mild_weather' not available in data.",
+      "recommendation": "Review thermostat setpoints — natural ventilation viable below 22°C."
+    }
+  ],
+  "alerts": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.795,
+      "threshold": 0.2,
+      "message": "Building is consuming 0.795% of daytime energy overnight.",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "triggered": true,
+      "value": 0.859,
+      "threshold": 0.3,
+      "message": "Weekend usage is 0.859% of weekday — expected <30%.",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+    }
+  ]
+}

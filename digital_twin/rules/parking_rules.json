@@ -1,0 +1,85 @@
+{
+  "primary_use": "parking",
+  "description": "Parking structures — lighting dominant, very predictable commuter patterns.",
+  "operating_hours": "05:00-23:00 (peak: 07-09 and 17-19)",
+  "behavioral_rules": [
+    {
+      "rule_id": "PRK_COMMUTER_PEAKS",
+      "name": "Commuter Double-Peak Pattern",
+      "description": "Consumption peaks at 07:00-09:00 (arrival) and 17:00-19:00 (departure).",
+      "condition": "local_peak in [7,8] or local_peak in [17,18]",
+      "threshold": null,
+      "metric": "commuter_peak_hours",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Confirm ventilation fans track occupancy sensor data.",
+      "demo_alert": "Classic commuter pattern — morning and evening peaks confirmed."
+    },
+    {
+      "rule_id": "PRK_OVERNIGHT_LIGHTING",
+      "name": "Overnight Lighting Base Load",
+      "description": "Overnight (23:00-05:00) load should be <20% of peak — mostly security lighting.",
+      "condition": "avg_overnight / avg_peak < 0.20",
+      "threshold": 0.2,
+      "metric": "overnight_to_peak_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Motion-activated lighting can reduce overnight load by 60-70%.",
+      "demo_alert": "Parking overnight lighting: {value:.0%} of peak — motion sensors recommended."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "description": "Weekend usage should be <60% of weekday usage for this building type.",
+      "condition": "avg_weekend_reading / avg_weekday_reading > threshold",
+      "threshold": 0.6,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment.",
+      "demo_alert": "Weekend usage is {value}% of weekday — expected <{threshold_pct}%."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PRK_VENTILATION_OVER",
+      "name": "Ventilation Over-Run Detection",
+      "description": "Ventilation running >2h after peak occupancy is inefficient.",
+      "condition": "post_peak_ventilation_hours > 2",
+      "threshold": 2,
+      "metric": "post_peak_ventilation_hours",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "CO2-linked ventilation control eliminates idle fan run-time.",
+      "demo_alert": "Ventilation fans running {value}h after occupancy peak — CO2 sensors recommended."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.1,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "description": "Consumption from 23:00-05:00 exceeds 20% of daily average.",
+      "condition": "avg_offhours_reading / avg_reading > threshold",
+      "threshold": 0.2,
+      "metric": "offhours_to_avg_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns.",
+      "demo_alert": "Significant energy consumed when building should be empty ({value:.0%} of daily avg)."
+    }
+  ]
+}

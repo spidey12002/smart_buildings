@@ -1,0 +1,22 @@
+[
+  {
+    "rule_id": "NIGHT_BASE_LOAD",
+    "name": "High Night-Time Base Load",
+    "severity": "warning",
+    "tier": "RULES_DT",
+    "value": 0.795,
+    "threshold": 0.2,
+    "message": "Building is consuming 0.795% of daytime energy overnight.",
+    "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+  },
+  {
+    "rule_id": "WEEKEND_ANOMALY",
+    "name": "Weekend Consumption Anomaly",
+    "severity": "info",
+    "tier": "RULES_DT",
+    "value": 0.859,
+    "threshold": 0.3,
+    "message": "Weekend usage is 0.859% of weekday — expected <30%.",
+    "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+  }
+]

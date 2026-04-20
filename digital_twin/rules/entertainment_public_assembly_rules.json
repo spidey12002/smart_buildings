@@ -1,0 +1,97 @@
+{
+  "primary_use": "entertainment_public_assembly",
+  "description": "Arenas, theatres, event spaces — event-driven, highly irregular load profiles.",
+  "operating_hours": "Variable — event-driven (evenings and weekends dominant)",
+  "behavioral_rules": [
+    {
+      "rule_id": "ENT_EVENT_SPIKE",
+      "name": "Event-Driven Consumption Spike",
+      "description": "Consumption >3x daily average indicates active event — HVAC and lighting at full capacity.",
+      "condition": "hourly_reading > 3 * avg_reading",
+      "threshold": 3.0,
+      "metric": "event_spike_ratio",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Link building control system to event calendar for automated scale-up.",
+      "demo_alert": "Event load spike detected — {value:.1f}x normal consumption (event in progress)."
+    },
+    {
+      "rule_id": "ENT_EVENING_PEAK",
+      "name": "Evening and Weekend Dominance",
+      "description": "18:00-23:00 and weekends account for >60% of total energy.",
+      "condition": "evening_weekend_pct > 0.60",
+      "threshold": 0.6,
+      "metric": "evening_weekend_pct",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Optimize pre-event preparation time — start HVAC 90 min before, not 3h.",
+      "demo_alert": "Evening/weekend energy dominates at {value:.0%} — aligned with event schedule."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 5.0,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "ENT_POST_EVENT_RAMPDOWN",
+      "name": "Slow Post-Event Ramp-Down",
+      "description": "Consumption should drop to <20% within 1h after event end.",
+      "condition": "consumption_1h_post_event / event_peak > 0.20",
+      "threshold": 0.2,
+      "metric": "post_event_ramp_down",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Automate post-event shutdown sequence for HVAC and non-essential lighting.",
+      "demo_alert": "Slow post-event shutdown — {value:.0%} of peak still running 1h after event."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.25,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.15,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    },
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "description": "Consumption from 2:00-08:00 exceeds 15% of daily average.",
+      "condition": "avg_offhours_reading / avg_reading > threshold",
+      "threshold": 0.15,
+      "metric": "offhours_to_avg_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns.",
+      "demo_alert": "Significant energy consumed when building should be empty ({value:.0%} of daily avg)."
+    }
+  ]
+}

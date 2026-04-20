@@ -1,0 +1,22 @@
+[
+  {
+    "rule_id": "NIGHT_BASE_LOAD",
+    "name": "High Night-Time Base Load",
+    "severity": "warning",
+    "tier": "RULES_DT",
+    "value": 1.146,
+    "threshold": 0.2,
+    "message": "Building is consuming 1.146% of daytime energy overnight.",
+    "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback."
+  },
+  {
+    "rule_id": "PEAK_TO_MEAN",
+    "name": "Demand Spike Detection",
+    "severity": "critical",
+    "tier": "RULES_DT",
+    "value": 8.307,
+    "threshold": 3.0,
+    "message": "Peak demand is 8.3x the average — opportunity to flatten load curve.",
+    "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads."
+  }
+]

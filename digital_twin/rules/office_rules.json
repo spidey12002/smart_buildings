@@ -1,0 +1,133 @@
+{
+  "primary_use": "office",
+  "description": "Commercial office buildings with strong business-hours patterns.",
+  "operating_hours": "Mon-Fri 08:00-19:00",
+  "behavioral_rules": [
+    {
+      "rule_id": "OFF_BUSINESS_HOURS",
+      "name": "Business Hours Energy Profile",
+      "description": "80%+ of daily energy should occur between 08:00-19:00 on weekdays.",
+      "condition": "pct_business_hours_energy > 0.80",
+      "threshold": 0.8,
+      "metric": "business_hours_pct",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Baseline established — deviations indicate schedule issues.",
+      "demo_alert": "Office follows clean 9-to-5 pattern — {value:.0%} of energy in business hours."
+    },
+    {
+      "rule_id": "OFF_MONDAY_RAMPUP",
+      "name": "Monday Morning Ramp-Up",
+      "description": "Monday 07:00-09:00 shows >50% higher load than Tue-Fri equivalent.",
+      "condition": "avg_monday_morning > 1.5 * avg_tue_fri_morning",
+      "threshold": 1.5,
+      "metric": "monday_ramp_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Pre-cool Friday evening to reduce Monday morning HVAC surge.",
+      "demo_alert": "Monday morning surge detected — building systems restarting simultaneously."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.2,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    },
+    {
+      "rule_id": "WEEKEND_ANOMALY",
+      "name": "Weekend Consumption Anomaly",
+      "description": "Weekend usage should be <30% of weekday usage for this building type.",
+      "condition": "avg_weekend_reading / avg_weekday_reading > threshold",
+      "threshold": 0.3,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Review weekend HVAC schedules and unoccupied equipment.",
+      "demo_alert": "Weekend usage is {value}% of weekday — expected <{threshold_pct}%."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 3.5,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "OFF_OVERNIGHT_LOAD",
+      "name": "Overnight Equipment Load",
+      "description": "After-hours (20:00-06:00) consumption > 15% of daytime suggests equipment not shut down.",
+      "condition": "avg_overnight / avg_daytime > 0.15",
+      "threshold": 0.15,
+      "metric": "overnight_to_daytime_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Audit servers, HVAC, and lighting auto-shutoff schedules.",
+      "demo_alert": "Overnight load is {value:.0%} of daytime — check equipment shutdown policy."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.3,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "description": "Summer (Jun-Aug) vs Winter (Dec-Feb) consumption ratio identifies cooling vs heating dominance.",
+      "condition": "abs(avg_summer - avg_winter) / avg_annual > 0.15",
+      "threshold": 0.15,
+      "metric": "summer_winter_ratio",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings.",
+      "demo_alert": "Summer usage is {value:.0%} higher than winter — cooling-dominated building."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "LOW_OCC_HIGH_LOAD",
+      "name": "High Consumption During Low-Occupancy Hours",
+      "description": "Consumption from 21:00-06:00 exceeds 15% of daily average.",
+      "condition": "avg_offhours_reading / avg_reading > threshold",
+      "threshold": 0.15,
+      "metric": "offhours_to_avg_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Configure occupancy sensors and timer-based shutdowns.",
+      "demo_alert": "Significant energy consumed when building should be empty ({value:.0%} of daily avg)."
+    },
+    {
+      "rule_id": "OFF_COOLING_WASTE",
+      "name": "Disproportionate Cooling Load",
+      "description": "Chilled water usage > 40% of total in mild weather (<22°C).",
+      "condition": "chilled_water_pct > 0.4 and avg_temp < 22",
+      "threshold": 0.4,
+      "metric": "cooling_in_mild_weather",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Review thermostat setpoints — natural ventilation viable below 22°C.",
+      "demo_alert": "Cooling running at full capacity in mild weather — setpoint misconfiguration suspected!"
+    }
+  ]
+}

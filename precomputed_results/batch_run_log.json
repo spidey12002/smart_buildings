@@ -1,0 +1,146 @@
+{
+  "education": {
+    "status": "OK",
+    "elapsed_s": 83.3,
+    "rows": 233315,
+    "best_model": "ARIMA (bldg=14,daily)",
+    "RMSE": 38.4792,
+    "RMSLE": null,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "office": {
+    "status": "OK",
+    "elapsed_s": 17.5,
+    "rows": 64834,
+    "best_model": "Random Forest",
+    "RMSE": 10.8501,
+    "RMSLE": 0.1423,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "healthcare": {
+    "status": "OK",
+    "elapsed_s": 5.6,
+    "rows": 17203,
+    "best_model": "ARIMA (bldg=455,daily)",
+    "RMSE": 9.5676,
+    "RMSLE": null,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "retail": {
+    "status": "OK",
+    "elapsed_s": 3.7,
+    "rows": 17231,
+    "best_model": "ARIMA (bldg=46,daily)",
+    "RMSE": 3.4105,
+    "RMSLE": null,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "parking": {
+    "status": "OK",
+    "elapsed_s": 2.2,
+    "rows": 8616,
+    "best_model": "ARIMA (bldg=51,daily)",
+    "RMSE": 3.2593,
+    "RMSLE": null,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "lodging_residential": {
+    "status": "OK",
+    "elapsed_s": 5.9,
+    "rows": 25848,
+    "best_model": "Linear Regression",
+    "RMSE": 22.4369,
+    "RMSLE": 0.057,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "food_sales_and_service": {
+    "status": "OK",
+    "elapsed_s": 9.0,
+    "rows": 25839,
+    "best_model": "Random Forest",
+    "RMSE": 5.0783,
+    "RMSLE": 0.3743,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "entertainment_public_assembly": {
+    "status": "OK",
+    "elapsed_s": 7.0,
+    "rows": 20506,
+    "best_model": "Random Forest",
+    "RMSE": 12.9156,
+    "RMSLE": 0.9879,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  },
+  "public_services": {
+    "status": "OK",
+    "elapsed_s": 8.6,
+    "rows": 25794,
+    "best_model": "XGBoost",
+    "RMSE": 2.8595,
+    "RMSLE": 0.0791,
+    "files": {
+      "summary_stats": "summary_stats.json",
+      "model_metrics": "model_metrics.json",
+      "predictions": "predictions.csv",
+      "correlations": "correlations.csv",
+      "feature_importance": "feature_importance.csv",
+      "cleaned_data": "cleaned_data.csv"
+    }
+  }
+}

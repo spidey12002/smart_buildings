@@ -1,0 +1,22 @@
+[
+  {
+    "rule_id": "WEEKEND_ANOMALY",
+    "name": "Weekend Consumption Anomaly",
+    "severity": "info",
+    "tier": "RULES_DT",
+    "value": 0.989,
+    "threshold": 0.6,
+    "message": "Weekend usage is 0.989% of weekday — expected <60%.",
+    "recommendation": "Review weekend HVAC schedules and unoccupied equipment."
+  },
+  {
+    "rule_id": "TEMP_CORRELATION",
+    "name": "Weather Sensitivity Check",
+    "severity": "info",
+    "tier": "STATS_DT",
+    "value": 0.3893,
+    "threshold": 0.1,
+    "message": "Energy use is 39% correlated with outdoor temperature.",
+    "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes."
+  }
+]

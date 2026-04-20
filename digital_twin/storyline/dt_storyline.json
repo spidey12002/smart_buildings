@@ -1,0 +1,81 @@
+{
+  "title": "Smart Buildings Digital Twin — Client Demo Storyline",
+  "subtitle": "From data visibility to causal AI-powered decision support",
+  "version": "1.0",
+  "dataset": "ASHRAE Great Energy Predictor III — Education sector (year_built > 2010)",
+  "demo_flow": [
+    {
+      "step": 1,
+      "tier": "TIER 1 — Display DT",
+      "duration_min": 3,
+      "hook": "Let me show you your building as a live digital twin.",
+      "narrative": [
+        "Open the Streamlit dashboard. Select 'Education' from the dropdown.",
+        "The time series appears — every hour of energy consumption for the full year.",
+        "Overlay the temperature curve. The client immediately sees cooling peaks in summer.",
+        "Show building metadata: 23 buildings, post-2010, average 86,000 sq ft.",
+        "Point to the KPI cards: mean 419 kWh, peak 2,100 kWh, 4 meter types."
+      ],
+      "client_aha": "I can see exactly how our buildings are consuming energy, hour by hour.",
+      "transition": "But seeing data isn't enough — let's show you what it MEANS."
+    },
+    {
+      "step": 2,
+      "tier": "TIER 2 — Rules DT",
+      "duration_min": 4,
+      "hook": "Our rule engine understands how educational buildings should behave.",
+      "narrative": [
+        "Switch to the 'Insights' tab. The rule evaluation panel appears.",
+        "Show a CRITICAL alert: 'High consumption during school holidays.'",
+        "Click the alert: 'Building consuming 47% of term-time energy during holidays — waste detected!'",
+        "Show a WARNING: 'Night-time base load is 28% of daytime — HVAC not shutting down.'",
+        "Show INFO: 'Summer break detected — consumption dropped 38% vs academic term.'",
+        "Display the recommendations panel: 'Schedule HVAC setback. Install occupancy sensors.'"
+      ],
+      "client_aha": "You're not just showing me data — you know what's wrong with my building.",
+      "transition": "Now let me show you the ML engine that quantifies exactly how much."
+    },
+    {
+      "step": 3,
+      "tier": "TIER 3 — Stats DT",
+      "duration_min": 5,
+      "hook": "Our ML engine has trained on your building's complete year of data.",
+      "narrative": [
+        "Switch to the 'Analytics' tab. Show the model leaderboard.",
+        "XGBoost achieves RMSE = 38 kWh vs Baseline RMSE = 211 kWh — 5x better.",
+        "Show feature importance: lag_1h and lag_24h dominate — strong autocorrelation.",
+        "Show the actual vs predicted chart — XGBoost tracks actual consumption closely.",
+        "Show correlation heatmap: air_temperature is the dominant external driver.",
+        "Switch to the '72-Hour Forecast' panel — show projected usage for next 3 days.",
+        "Frame it: 'This forecast powers your procurement and HVAC scheduling decisions.'"
+      ],
+      "client_aha": "You can predict our energy usage 3 days ahead with 82% accuracy. That changes everything for budgeting.",
+      "transition": "And the final layer — we can simulate what CHANGES will do before you make them."
+    },
+    {
+      "step": 4,
+      "tier": "TIER 4 — Causal DT",
+      "duration_min": 5,
+      "hook": "What if you changed your HVAC schedule by 2 hours? Let's simulate it.",
+      "narrative": [
+        "Switch to the 'Simulator' tab.",
+        "Move the 'HVAC start time' slider from 06:00 to 08:00.",
+        "The forecast curve updates: projected saving = 12% (based on feature perturbation).",
+        "Translate to business value: '12% of 419 avg kWh × 8,760 hours × £0.15/kWh = £66,000/year per building.'",
+        "Show the occupancy schedule slider: shift to 4-day week.",
+        "Show the weather scenario: what happens during a 5°C heatwave week?",
+        "Close with ROI calculator: 'This dashboard pays for itself in 3 weeks of savings.'"
+      ],
+      "client_aha": "We can test changes virtually before spending a single pound on implementation.",
+      "transition": "This is the full Digital Twin value chain — visibility, understanding, prediction, simulation."
+    }
+  ],
+  "closing_statement": "The Smart Buildings Digital Twin transforms raw meter data into a living, intelligent model of your building portfolio. From display (visibility) to rules (understanding) to stats (prediction) to causal (simulation) — each tier adds compounding business value, ultimately enabling data-driven energy management at scale across your entire estate.",
+  "roi_summary": {
+    "HVAC_schedule_optimisation": "8-15% energy reduction",
+    "Demand_peak_flattening": "10-20% demand charge reduction",
+    "Night_setback_automation": "5-10% baseline reduction",
+    "Forecasting_procurement": "3-7% procurement cost reduction",
+    "Total_estimated_savings": "20-35% of current energy spend"
+  }
+}

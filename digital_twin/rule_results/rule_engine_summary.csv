@@ -1,0 +1,10 @@
+category,total_rules,triggered,critical,warnings,best_model,best_rmse,peak_to_mean_ratio,night_to_day_ratio,weekend_weekday_ratio,air_temp_correlation
+education,10,3,1,1,"ARIMA (bldg=14,daily)",38.4792,17.382,0.88,0.934,
+office,10,2,0,1,Random Forest,10.8501,1.893,0.795,0.859,
+healthcare,7,0,0,0,"ARIMA (bldg=455,daily)",9.5676,1.484,0.929,0.983,0.0877
+retail,8,3,1,1,"ARIMA (bldg=46,daily)",3.4105,4.303,0.719,1.039,0.175
+parking,6,2,0,0,"ARIMA (bldg=51,daily)",3.2593,1.381,1.506,0.989,0.3893
+lodging_residential,7,3,0,1,Linear Regression,22.4369,1.888,0.944,0.978,0.4643
+food_sales_and_service,6,2,1,1,Random Forest,5.0783,8.307,1.146,0.967,0.1864
+entertainment_public_assembly,7,2,0,1,Random Forest,12.9156,2.018,0.788,1.044,0.3018
+public_services,9,3,1,1,XGBoost,2.8595,1.896,0.864,0.97,0.1962

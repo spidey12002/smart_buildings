@@ -1,0 +1,97 @@
+{
+  "primary_use": "lodging_residential",
+  "description": "Hotels and residential buildings — near-continuous occupancy with twin peaks.",
+  "operating_hours": "24/7 — peaks at 06:00-09:00 and 18:00-22:00",
+  "behavioral_rules": [
+    {
+      "rule_id": "LOD_TWIN_PEAK",
+      "name": "Morning and Evening Occupancy Peaks",
+      "description": "Peak consumption at 07:00-09:00 (morning routines) and 19:00-22:00 (evening).",
+      "condition": "peak_hours in [(6,9), (18,22)]",
+      "threshold": null,
+      "metric": "twin_peak_hours",
+      "severity": "info",
+      "tier": "DISPLAY_DT",
+      "recommendation": "Pre-heat hot water 30 min before peak to avoid instant-draw spikes.",
+      "demo_alert": "Twin residential peaks detected — morning and evening usage spikes."
+    },
+    {
+      "rule_id": "NIGHT_BASE_LOAD",
+      "name": "High Night-Time Base Load",
+      "description": "Average consumption between 11PM-5AM exceeds threshold % of daily mean.",
+      "condition": "avg_night_reading / avg_day_reading > threshold",
+      "threshold": 0.5,
+      "metric": "night_to_day_ratio",
+      "severity": "warning",
+      "tier": "RULES_DT",
+      "recommendation": "Investigate equipment left running overnight. Schedule HVAC setback.",
+      "demo_alert": "Building is consuming {value}% of daytime energy overnight."
+    }
+  ],
+  "efficiency_rules": [
+    {
+      "rule_id": "PEAK_TO_MEAN",
+      "name": "Demand Spike Detection",
+      "description": "Max meter reading exceeds threshold × mean — indicates uncontrolled demand peaks.",
+      "condition": "max_meter_reading / mean_meter_reading > threshold",
+      "threshold": 2.5,
+      "metric": "peak_to_mean_ratio",
+      "severity": "critical",
+      "tier": "RULES_DT",
+      "recommendation": "Implement demand response: stagger HVAC start, shift non-critical loads.",
+      "demo_alert": "Peak demand is {value:.1f}x the average — opportunity to flatten load curve."
+    },
+    {
+      "rule_id": "LOD_HOT_WATER",
+      "name": "Hot Water / Steam Proportion",
+      "description": "Hot water should be 20-35% of energy in lodging — spikes indicate inefficiency.",
+      "condition": "hot_water_pct > 0.35",
+      "threshold": 0.35,
+      "metric": "hot_water_proportion",
+      "severity": "warning",
+      "tier": "STATS_DT",
+      "recommendation": "Install heat pump water heaters — 3x more efficient than electric.",
+      "demo_alert": "Hot water load at {value:.0%} — above 35% benchmark for lodging sector."
+    }
+  ],
+  "weather_sensitivity_rules": [
+    {
+      "rule_id": "TEMP_CORRELATION",
+      "name": "Weather Sensitivity Check",
+      "description": "Correlation between air_temperature and meter_reading reveals cooling/heating dependency.",
+      "condition": "abs(corr_air_temp_meter) > threshold",
+      "threshold": 0.3,
+      "metric": "air_temperature_correlation",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Optimize HVAC based on temperature forecast to reduce reactive energy spikes.",
+      "demo_alert": "Energy use is {value:.0%} correlated with outdoor temperature."
+    },
+    {
+      "rule_id": "SEASONAL_DEPENDENCY",
+      "name": "Seasonal Energy Pattern",
+      "description": "Summer (Jun-Aug) vs Winter (Dec-Feb) consumption ratio identifies cooling vs heating dominance.",
+      "condition": "abs(avg_summer - avg_winter) / avg_annual > 0.15",
+      "threshold": 0.15,
+      "metric": "summer_winter_ratio",
+      "severity": "info",
+      "tier": "STATS_DT",
+      "recommendation": "Seasonal HVAC tuning can yield 10-20% energy savings.",
+      "demo_alert": "Summer usage is {value:.0%} higher than winter — cooling-dominated building."
+    }
+  ],
+  "alert_rules": [
+    {
+      "rule_id": "LOD_VACANCY_WASTE",
+      "name": "Energy Waste During Low Occupancy",
+      "description": "Weekend patterns show significant waste during low-occupancy floors.",
+      "condition": "avg_weekend < avg_weekday * 0.85",
+      "threshold": 0.85,
+      "metric": "weekend_to_weekday_ratio",
+      "severity": "info",
+      "tier": "RULES_DT",
+      "recommendation": "Smart floor management — power down unoccupied floors automatically.",
+      "demo_alert": "Weekend occupancy drop not reflected in energy savings — review floor shutdowns."
+    }
+  ]
+}
